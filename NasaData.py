@@ -18,26 +18,18 @@ def get_Nasa_Data():
            
             data = response.json()
 
-            #need new frame to plot only certain data we want
-            plot_values = []
-
-  
             # list of sol keys 
             sol_keys = data.get("sol_keys", [])
-            
-            for i in range(len(sol_keys)):
-                print(sol_keys[i])
 
             # display temps for each sol key
-            for sol in range(len(sol_keys)):
-                sol_data = data.get(sol, {})
+            for sol in (sol_keys):
+                sol_data = data.get(sol)
                 
-            for sol in range(len(sol_keys)):
-                atmospheric_temps = sol_data.get("AT", {})
-                min_temp = atmospheric_temps.get("mn", {})
-                max_temp = atmospheric_temps.get("mx", {})
+                atmospheric_temps = sol_data.get("AT")
+                min_temp = atmospheric_temps.get("mn")
+                max_temp = atmospheric_temps.get("mx")
                 
-                print(f"sol: {sol},min temps , {min_temp}, max temps , {max_temp} ")
+                print(f"Sol Key:, {sol}, min temps , {min_temp}, max temps , {max_temp} ")
               
                     
         except ValueError:
