@@ -4,7 +4,7 @@ import json
 import matplotlib.pyplot as pt
 
 #Ariana Hrlic
-#2025/10/12
+#2025/10/17
 #using pandas with Nasa API Mars weather data 
 
 def get_Nasa_Data():
@@ -19,21 +19,34 @@ def get_Nasa_Data():
             data = response.json()
             
 
-            # list of sol keys 
+            # list declaration
             sol_keys = data.get("sol_keys", [])
+            min_temp_list = []
+            max_temp_list = []
+            sols = []
 
             # display temps for each sol key
             for sol in (sol_keys):
                 sol_data = data.get(sol)
                 
                 atmospheric_temps = sol_data.get("AT", {})
+
                 min_temp = atmospheric_temps.get("mn", None)
-                max_temp = atmospheric_temps.get("mx", None)
+                min_temp_list.append(min_temp)
                 
+                max_temp = atmospheric_temps.get("mx", None)
+                max_temp_list.append(max_temp)
+                
+                sols.append(sol)
+            
                
-            temperatures = { "Minimum temperature" : [min_temp] ,
-                           "Maximum temperature" : [max_temp]
+            temperatures = { 
+                "Sols" : sols, 
+                "Minimum temperature" : min_temp_list ,
+                "Maximum temperature" : max_temp_list
             }    
+
+          
 
 
             df = pd.DataFrame(temperatures)
