@@ -1,6 +1,6 @@
 # Mars-Weather
 
-Displays meaningful Nasa API data and displays graphs using Panadas and Matplotlib libraries in python
+Displays meaningful Nasa API data and displays graphs using Panadas, Numpy and Matplotlib libraries in python
 
 Set up instructions: 
 1. run "pip install pandas" in the terminal
