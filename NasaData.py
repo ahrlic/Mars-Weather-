@@ -1,7 +1,7 @@
 import pandas as pd
 import requests
-import json
 import matplotlib.pyplot as pt
+import numpy as np
 
 #Ariana Hrlic
 #2025/10/17
@@ -17,7 +17,6 @@ def get_Nasa_Data():
         try: 
            
             data = response.json()
-            
 
             # list declaration
             sol_keys = data.get("sol_keys", [])
@@ -46,8 +45,6 @@ def get_Nasa_Data():
                 "Maximum temperature" : max_temp_list
             }    
 
-          
-
 
             df = pd.DataFrame(temperatures)
 
@@ -58,5 +55,10 @@ def get_Nasa_Data():
             print("There was an error with formatting the information from the json file")
     else:
         print("data was not retireved", response.status_code)
-        
+
+
+def plot_Nasa_Data():
+    print()
+
+
 get_Nasa_Data()
