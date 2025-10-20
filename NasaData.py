@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 #Ariana Hrlic
-#2025/10/17
+#2025/10/20
 #using pandas with Nasa API Mars weather data 
 
 def get_Nasa_Data():
