@@ -1,6 +1,7 @@
+import sys
 import pandas as pd
 import requests
-import matplotlib.pyplot as pt
+import matplotlib.pyplot as plt
 import numpy as np
 
 #Ariana Hrlic
@@ -33,6 +34,7 @@ def get_Nasa_Data():
                 min_temp = atmospheric_temps.get("mn", None)
                 min_temp_list.append(min_temp)
                 
+                
                 max_temp = atmospheric_temps.get("mx", None)
                 max_temp_list.append(max_temp)
                 
@@ -49,7 +51,10 @@ def get_Nasa_Data():
             df = pd.DataFrame(temperatures)
 
             print(df)
-
+            
+            #return lists to access outside of this function
+            return sols, min_temp_list, max_temp_list
+        
 
         except ValueError:
             print("There was an error with formatting the information from the json file")
@@ -57,8 +62,21 @@ def get_Nasa_Data():
         print("data was not retireved", response.status_code)
 
 
+#plotting the data into graphs
 def plot_Nasa_Data():
-    print()
+    sols, min_temp_list, max_temp_list = get_Nasa_Data()
+   
+    x = np.array(sols)
+
+    y = np.array(min_temp_list)
+
+    plt.scatter(x,y)
+
+    plt.show()
 
 
-get_Nasa_Data()
+    plt.savefig("mars_temperatures.png") 
+
+
+#get_Nasa_Data()
+plot_Nasa_Data()
