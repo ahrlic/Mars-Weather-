@@ -71,6 +71,8 @@ def plot_Nasa_Data():
     y = np.array(min_temp_list)
 
     plt.scatter(x,y)
+    plt.xlabel("Sols")
+    plt.ylabel("Minimum Temperature")
 
     plt.show()
 
