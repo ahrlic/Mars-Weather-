@@ -68,11 +68,11 @@ def plot_Nasa_Data():
    
     x = np.array(sols)
 
-    y = np.array(min_temp_list)
+    y = np.array(max_temp_list)
 
     plt.scatter(x,y)
     plt.xlabel("Sols")
-    plt.ylabel("Minimum Temperature")
+    plt.ylabel("Maximum Temperature")
 
     plt.show()
 
