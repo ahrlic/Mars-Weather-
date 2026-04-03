@@ -1,11 +1,10 @@
-import sys
 import pandas as pd
 import requests
 import matplotlib.pyplot as plt
 import numpy as np
 
 #Ariana Hrlic
-#2025/10/20
+#2026/04/03
 #using pandas with Nasa API Mars weather data 
 
 def get_Nasa_Data():
@@ -68,16 +67,16 @@ def plot_Nasa_Data():
    
     x = np.array(sols)
 
-    y = np.array(max_temp_list)
+    y = np.array(min_temp_list)
 
     plt.scatter(x,y)
     plt.xlabel("Sols")
-    plt.ylabel("Maximum Temperature")
+    plt.ylabel("Minimum Temperature")
 
     plt.show()
 
 
-    plt.savefig("mars_temperatures.png") 
+    plt.savefig("min_temperatures.png") 
 
 
 #get_Nasa_Data()
