@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 #Ariana Hrlic
-#2026/04/03
+#2026/04/06
 #using pandas with Nasa API Mars weather data 
 
 def get_Nasa_Data():
@@ -24,11 +24,13 @@ def get_Nasa_Data():
             max_temp_list = []
             seasons_list = []
             pressure_list = []
-            sols = []
+            h_wind_speed = []
+            sols  = []
+           
 
             # display temps for each sol key
             for sol in (sol_keys):
-                sol_data = data.get(sol)
+                sol_data = data.get(sol, {})
                 
                 atmospheric_temps = sol_data.get("AT", {})
 
@@ -42,37 +44,51 @@ def get_Nasa_Data():
                 seasons = sol_data.get("Season", None)
                 seasons_list.append(seasons)
 
-                atmoshperic_pressure = sol_data.get("PRE", None)
+                atmoshperic_pressure = sol_data.get("PRE", {}).get("av", None)
                 pressure_list.append(atmoshperic_pressure)
+
+                horizontal_wind_speed = sol_data.get("HWS", {}).get("av", None)
+                h_wind_speed.append(horizontal_wind_speed)
+
+
 
                 sols.append(sol)
             
                
-            temperatures = { 
+            mars_data = { 
                 "Sols" : sols, 
                 "Minimum temperature" : min_temp_list ,
                 "Maximum temperature" : max_temp_list , 
-                "Season" : seasons_list, 
+                "Season" : seasons_list,
+                "Average Atmospheric Pressure" : pressure_list,
+                "Average Horizontal Wind Speed" : h_wind_speed
             }    
 
             
-            df = pd.DataFrame(temperatures)
+            df = pd.DataFrame(mars_data)
         
 
-            print(df)
+            #to show the entire data frame
+            print(df.to_string())
            
             #return lists to access outside of this function
             return sols, min_temp_list, max_temp_list, seasons_list
 
-        except ValueError:
-            print("There was an error with formatting the information from the json file")
+          
+        except TypeError :
+            print("The value does not have the expected type")
+        
+        except ValueError :
+            print("The value has the wrong format")
+           
     else:
         print("data was not retireved", response.status_code)
 
 
 #plotting the data into graphs
 def plot_Nasa_Data():
-    sols, min_temp_list,seasons_list, max_temp_list = get_Nasa_Data()
+
+    sols, min_temp_list, max_temp_list, seasons_list = get_Nasa_Data()
    
 
     x = np.array(sols)
@@ -91,4 +107,3 @@ def plot_Nasa_Data():
 
 
 plot_Nasa_Data()
-get_Nasa_Data()
