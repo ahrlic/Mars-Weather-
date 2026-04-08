@@ -9,4 +9,10 @@ Set up instructions:
 4. The demo key in place for the API Key has a rate limit, error code 429 refers to the limit being exceeded -> create your own API key here: https://api.nasa.gov/ 
    or wait some time before running the program again
 
-This is a small personal project Im currently working on to work with python more, it is not inheriently finished, and will change
+Power BI: 
+
+The Python file listed as "NasaData_Bi.py" is a script including just the data frame with the raw data from the API, that can be copy and pasted directly into PowerBi: 
+Create Report -> Get Data From Another Source - > Python Script - > Load (raw data) or Transform Data (Data ready to work with) -> Save and Apply 
+
+The data from the data frame can be then used in models / any feature of PowerBi at your convience.
+
