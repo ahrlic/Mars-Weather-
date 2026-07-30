@@ -16,3 +16,4 @@ Create Report -> Get Data From Another Source - > Python Script - > Load (raw da
 
 The data from the data frame can be then used in models / any feature of PowerBi at your convience.
 
+See the complete PowerBI report : Nasa_Data_PowerBI_Report.pdf
