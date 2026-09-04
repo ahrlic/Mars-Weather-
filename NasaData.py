@@ -10,16 +10,14 @@ import numpy as np
 
 def get_Nasa_Data():
     
-    response = requests.get("https://api.nasa.gov/insight_weather/?api_key=DEMO_KEY&feedtype=json&ver=1.0", timeout=2) 
+    response = requests.get("https://api.nasa.gov/insight_weather/?api_key=DEMO_KEY&feedtype=json&ver=1.0", timeout=2).json() 
     
     if response:
         try: 
            
-            data = response.json()
-           
 
             # list declaration
-            sol_keys = data.get("sol_keys", [])
+            sol_keys = response.get("sol_keys", [])
             min_temp_list = []
             max_temp_list = []
             seasons_list = []
@@ -30,7 +28,7 @@ def get_Nasa_Data():
 
             # display temps for each sol key
             for sol in (sol_keys):
-                sol_data = data.get(sol, {})
+                sol_data = response.get(sol, {})
                 
                 atmospheric_temps = sol_data.get("AT", {})
 
@@ -50,15 +48,13 @@ def get_Nasa_Data():
                 horizontal_wind_speed = sol_data.get("HWS", {}).get("av", None)
                 h_wind_speed.append(horizontal_wind_speed)
 
-
-
                 sols.append(sol)
             
                
             mars_data = { 
                 "Sols" : sols, 
-                "Minimum temperature" : min_temp_list ,
-                "Maximum temperature" : max_temp_list , 
+                "Minimum temperature" : min_temp_list,
+                "Maximum temperature" : max_temp_list, 
                 "Season" : seasons_list,
                 "Average Atmospheric Pressure" : pressure_list,
                 "Average Horizontal Wind Speed" : h_wind_speed
@@ -107,5 +103,5 @@ def plot_Nasa_Data():
    # plt.savefig("min_temperatures.png") 
 
 
-
-plot_Nasa_Data()
+get_Nasa_Data()
+#plot_Nasa_Data()

@@ -3,13 +3,10 @@
 import pandas as pd
 import requests
 
-url = "https://api.nasa.gov/insight_weather/?api_key=DEMO_KEY&feedtype=json&ver=1.0"
+response = requests.get("https://api.nasa.gov/insight_weather/?api_key=DEMO_KEY&feedtype=json&ver=1.0", timeout=2).json() 
+    
 
-response = requests.get(url)
-
-data = response.json()
-
-sol_keys = data.get("sol_keys", [])
+sol_keys = response.get("sol_keys", [])
 
 min_temp_list = []
 max_temp_list = []
@@ -19,7 +16,7 @@ h_wind_speed = []
 sols  = []
 
 for sol in sol_keys:
-    sol_data = data.get(sol, {})
+    sol_data = response.get(sol, {})
     
     atmospheric_temps = sol_data.get("AT", {})
 
@@ -42,4 +39,3 @@ mars_data = {
 
 df = pd.DataFrame(mars_data)
 
-df
