@@ -4,19 +4,18 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 #Ariana Hrlic
-#2026/04/06
+#2026/04/08
 #using pandas with Nasa API Mars weather data 
 
 def get_Nasa_Data():
     
-    url = "https://api.nasa.gov/insight_weather/?api_key=DEMO_KEY&feedtype=json&ver=1.0"
-
-    response = requests.get(url) 
+    response = requests.get("https://api.nasa.gov/insight_weather/?api_key=DEMO_KEY&feedtype=json&ver=1.0", timeout=2) 
     
-    if response.status_code == 200:
+    if response:
         try: 
            
             data = response.json()
+           
 
             # list declaration
             sol_keys = data.get("sol_keys", [])
@@ -82,7 +81,7 @@ def get_Nasa_Data():
             print("The value has the wrong format")
            
     else:
-        print("data was not retireved", response.status_code)
+        raise Exception(f"Non-success status code: {response.status_code}")
 
 
 #plotting the data into graphs
