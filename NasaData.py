@@ -1,5 +1,6 @@
 import pandas as pd
 import requests
+from requests.exceptions import Timeout
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -79,6 +80,8 @@ def get_Nasa_Data():
         
         except ValueError :
             print("The value has the wrong format")
+        except Timeout:
+            print("The request timed out")
            
     else:
         raise Exception(f"Non-success status code: {response.status_code}")
