@@ -4,31 +4,27 @@ from requests.exceptions import Timeout
 import matplotlib.pyplot as plt
 import numpy as np
 import subprocess
+import sys
 
 # Ariana Hrlic
 # 2026/09/05
 # using pandas with Nasa API Mars weather data
 
-process1 = subprocess.Popen(
-    ["python", "TestAPIHealth.py"],
-    stdout=subprocess.PIPE,
-    stderr=subprocess.PIPE,
-    text=True,
+result = subprocess.run(
+    [sys.executable, "PowerBI/TestAPIHealth.py"], capture_output=True, text=True
 )
 
-stdout1, stderr1 = process1.communicate()
 
 def get_Nasa_Data():
-    
-    if process1.returncode == 0:
+
+    if result.returncode == 0:
 
         response = requests.get(
             "https://api.nasa.gov/insight_weather/?api_key=DEMO_KEY&feedtype=json&ver=1.0",
             timeout=2,
         ).json()
 
-        
-         # list declaration
+        # list declaration
         sol_keys = response.get("sol_keys", [])
         min_temp_list = []
         max_temp_list = []
@@ -69,17 +65,19 @@ def get_Nasa_Data():
                 "Average Horizontal Wind Speed": h_wind_speed,
             }
 
-            df = pd.DataFrame(mars_data)
+        df = pd.DataFrame(mars_data)
 
-            # to show the entire data frame
-            print(df.to_string())
+        # to show the entire data frame
+        print(df.to_string())
 
-            # return lists to access outside of this function
-            return sols, min_temp_list, max_temp_list, seasons_list
+        # return lists to access outside of this function
+        return sols, min_temp_list, max_temp_list, seasons_list
+
     else:
-        print(stderr1)
+        print(f"Error occurred: {result.stdout}")
         exit()
-        
+
+
 get_Nasa_Data()
 
 # plotting the data into graphs
@@ -100,7 +98,6 @@ get_Nasa_Data()
 
 
 # plt.savefig("min_temperatures.png")
-
 
 
 # plot_Nasa_Data()
