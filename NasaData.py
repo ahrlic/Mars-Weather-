@@ -77,8 +77,8 @@ def get_Nasa_Data():
         print(f"Error occurred: {result.stdout}")
         exit()
 
-
-get_Nasa_Data()
+if __name__ == '__main__':
+    get_Nasa_Data()
 
 # plotting the data into graphs
 # def plot_Nasa_Data():
